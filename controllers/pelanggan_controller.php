@@ -20,9 +20,12 @@ function getAllPelanggan($conn) {
 
 // Fungsi untuk mendapatkan data pelanggan berdasarkan ID
 function getPelangganById($conn, $id) {
-    // Menyesuaikan query untuk mengambil semua kolom yang relevan dari tabel pelanggan
-    $stmt = $conn->prepare("SELECT id, nama_pelanggan, alamat, paket_id, tanggal_pasang, tanggal_jatuh_tempo
-                            FROM pelanggan WHERE id = ?");
+    // REVISI DI SINI: Lakukan JOIN dengan tabel 'paket' untuk mendapatkan nama_paket dan harga
+    $stmt = $conn->prepare("SELECT p.id, p.nama_pelanggan, p.alamat, p.paket_id, p.tanggal_pasang, p.tanggal_jatuh_tempo,
+                                   pk.nama_paket, pk.harga
+                            FROM pelanggan p
+                            JOIN paket pk ON p.paket_id = pk.id
+                            WHERE p.id = ?");
     if ($stmt) {
         $stmt->bind_param('i', $id);
         $stmt->execute();
@@ -77,7 +80,7 @@ function deletePelanggan($conn, $id) {
 // Fungsi untuk mendapatkan semua paket (untuk dropdown)
 function getAllPaket($conn) {
     // Menggunakan kolom 'nama_paket' yang benar
-    $sql = "SELECT id, nama_paket FROM paket ORDER BY nama_paket ASC";
+    $sql = "SELECT id, nama_paket, harga FROM paket ORDER BY nama_paket ASC"; // Tambahkan 'harga' juga jika mungkin diperlukan di tempat lain
     $result = $conn->query($sql);
     return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 }

@@ -7,6 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 require_once 'koneksi.php';
 require_once 'controllers/pelanggan_controller.php';
+require_once 'controllers/paket_controller.php'; // Make sure this is included for getAllPaket
 
 // Cek apakah user sudah login dan role-nya admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
@@ -145,6 +146,8 @@ $paket_list = getAllPaket($conn);
                     <?php if (!empty($current_pelanggan['id'])): ?>
                         <a href="manage_pelanggan.php" class="btn btn-secondary">Batal Edit</a>
                     <?php endif; ?>
+                    <a href="export_all_pelanggan.php?type=excel" class="btn btn-success">Export ke Excel</a>
+                    <a href="export_all_pelanggan.php?type=print" class="btn btn-info" target="_blank">Cetak Semua Data</a>
                 </form>
             </div>
         </div>
@@ -184,6 +187,7 @@ $paket_list = getAllPaket($conn);
                                         <td>
                                             <a href="manage_pelanggan.php?action=edit&id=<?= htmlspecialchars($pelanggan['id']) ?>" class="btn btn-warning btn-sm">Edit</a>
                                             <a href="manage_pelanggan.php?action=delete&id=<?= htmlspecialchars($pelanggan['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus pelanggan ini?');">Hapus</a>
+                                            <a href="generate_invoice.php?id=<?= htmlspecialchars($pelanggan['id']) ?>&type=pdf" class="btn btn-info btn-sm" target="_blank">Nota PDF</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
