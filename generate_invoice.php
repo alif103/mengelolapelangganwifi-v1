@@ -104,7 +104,7 @@ $total_tagihan = $harga_paket; // Jika ada biaya lain, tambahkan di sini
         .info-block.customer-info {
             text-align: left;
         }
-         .info-block.invoice-meta {
+        .info-block.invoice-meta {
             text-align: right;
         }
         .info-block strong {
@@ -214,6 +214,11 @@ $total_tagihan = $harga_paket; // Jika ada biaya lain, tambahkan di sini
 
         /* Print Specific Styles */
         @media print {
+            @page {
+                size: A4; /* Set page size to A4 */
+                margin: 15mm; /* Set consistent margins for the entire page */
+            }
+
             body {
                 background-color: #fff !important;
                 -webkit-print-color-adjust: exact;
@@ -225,9 +230,10 @@ $total_tagihan = $harga_paket; // Jika ada biaya lain, tambahkan di sini
             .invoice-container {
                 box-shadow: none;
                 border: none;
-                margin: 0;
-                padding: 20mm; /* Use real units for print margins */
+                margin: 0 auto; /* Center the container on the A4 page */
+                padding: 0; /* Remove internal padding, controlled by @page margin */
                 width: 100%;
+                max-width: 100%; /* Ensure it doesn't exceed A4 width */
             }
             .print-button-container, .no-print {
                 display: none !important;
@@ -247,7 +253,7 @@ $total_tagihan = $harga_paket; // Jika ada biaya lain, tambahkan di sini
                 flex-direction: row; /* Ensure they stay side by side */
             }
             .info-block {
-                 padding: 0 5mm; /* Smaller padding for print */
+                padding: 0 5mm; /* Smaller padding for print */
             }
             .invoice-details table {
                 margin-top: 15px;
@@ -259,8 +265,8 @@ $total_tagihan = $harga_paket; // Jika ada biaya lain, tambahkan di sini
                 margin-top: 20px;
             }
             .total-section .total-amount {
-                 padding: 10px 20px;
-                 font-size: 18px;
+                padding: 10px 20px;
+                font-size: 18px;
             }
             .footer-notes {
                 margin-top: 30px;
@@ -273,9 +279,9 @@ $total_tagihan = $harga_paket; // Jika ada biaya lain, tambahkan di sini
     <div class="invoice-container">
         <div class="header">
             <h1>Nota Tagihan WiFi</h1>
-            <h2>Nama Perusahaan WiFi Anda</h2>
-            <p>Alamat Perusahaan Anda, Kota, Kode Pos</p>
-            <p>Email: info@wifianda.com | Telp: 0812-3456-7890</p>
+            <h2>BUMDES WIFI</h2>
+            <p>Brawah, Tamansari, Kec. Mranggen, Kabupaten Demak, Jawa Tengah 59567</p>
+            <p>Email: jsit@gmail.com | Telp: 0812-3456-7899</p>
         </div>
 
         <div class="info-section">
@@ -309,9 +315,6 @@ $total_tagihan = $harga_paket; // Jika ada biaya lain, tambahkan di sini
                         <td>Langganan Paket WiFi: <?= htmlspecialchars($pelanggan['nama_paket'] ?? 'N/A') ?></td>
                         <td class="text-right">Rp. <?= number_format($harga_paket, 2, ',', '.') ?></td>
                     </tr>
-                    <tr>
-                        <td>Biaya Instalasi (jika ada)</td>
-                        <td class="text-right">Rp. 0.00</td> </tr>
                     </tbody>
             </table>
         </div>
@@ -326,7 +329,7 @@ $total_tagihan = $harga_paket; // Jika ada biaya lain, tambahkan di sini
         <div class="footer-notes">
             <p>Terima kasih telah menggunakan layanan kami!</p>
             <p>Pembayaran dapat dilakukan melalui transfer bank atau ke kantor kami.</p>
-            <p>Harap bayar sebelum tanggal jatuh tempo untuk menghindari denda.</p>
+            <p>Harap bayar sebelum tanggal jatuh tempo untuk menghindari suspend.</p>
         </div>
     </div>
 

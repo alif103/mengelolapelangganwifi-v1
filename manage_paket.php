@@ -104,7 +104,7 @@ $paket_data = getAllPaketData($conn); // Menggunakan fungsi dari paket_controlle
                     </div>
                     <div class="mb-3">
                         <label for="harga" class="form-label">Harga:</label>
-                        <input type="number" class="form-control" id="harga" name="harga" step="0.01" value="<?= htmlspecialchars($current_paket['harga']) ?>" required>
+                        <input type="number" class="form-control" id="harga" name="harga" step="50000" value="<?= htmlspecialchars($current_paket['harga']) ?>" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Simpan Data</button>
                     <?php if (!empty($current_paket['id'])): ?>
@@ -123,8 +123,7 @@ $paket_data = getAllPaketData($conn); // Menggunakan fungsi dari paket_controlle
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nama Paket</th>
+                                <th>No.</th> <th>Nama Paket</th>
                                 <th>Harga</th>
                                 <th>Aksi</th>
                             </tr>
@@ -133,10 +132,10 @@ $paket_data = getAllPaketData($conn); // Menggunakan fungsi dari paket_controlle
                             <?php if (empty($paket_data)): ?>
                                 <tr><td colspan="4" class="text-center">Belum ada data paket.</td></tr>
                             <?php else: ?>
+                                <?php $counter = 1; // Initialize a counter ?>
                                 <?php foreach ($paket_data as $paket): ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($paket['id']) ?></td>
-                                        <td><?= htmlspecialchars($paket['nama']) ?></td>
+                                        <td><?= $counter++ ?></td> <td><?= htmlspecialchars($paket['nama']) ?></td>
                                         <td>Rp. <?= number_format($paket['harga'], 2, ',', '.') ?></td>
                                         <td>
                                             <a href="manage_paket.php?action=edit&id=<?= htmlspecialchars($paket['id']) ?>" class="btn btn-warning btn-sm">Edit</a>
